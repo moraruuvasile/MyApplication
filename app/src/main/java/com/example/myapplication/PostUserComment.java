@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
-public class PostUserComment {
+import java.io.Serializable;
+
+public class PostUserComment implements Serializable {
 	private int userId;
 	private int id;
 	private int postId;

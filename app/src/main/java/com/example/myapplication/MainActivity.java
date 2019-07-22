@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void generateDataList(List<PostUserComment> posts) {
+	private void generateDataList(final List<PostUserComment> posts) {
 		clickablePosts = findViewById(R.id.appsListView);
 		ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,posts);
 		clickablePosts.setAdapter(arrayAdapter);
@@ -48,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
 				new AdapterView.OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-						ffsdfsdf
-								ffsdfsdfsdfsd
-								dfsfsd
-										dsfsd
-
+//						Toast.makeText(MainActivity.this, String.valueOf(posts.get(i)), Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(MainActivity.this, DetailScreenActivity.class);
+						intent.putExtra("Post", posts.get(i));
+						startActivity(intent);
 					}
 				}
 		);
