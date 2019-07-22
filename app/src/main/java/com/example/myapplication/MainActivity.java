@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onResponse(Call<List<PostUserComment>> call, Response<List<PostUserComment>> response) {
-				generateDataList(response.body());
+				generateClickablePosts(response.body());
 			}
 
 			@Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void generateDataList(final List<PostUserComment> posts) {
+	private void generateClickablePosts(final List<PostUserComment> posts) {
 		clickablePosts = findViewById(R.id.appsListView);
 		ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,posts);
 		clickablePosts.setAdapter(arrayAdapter);
