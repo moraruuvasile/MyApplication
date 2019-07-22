@@ -15,6 +15,7 @@ import retrofit2.Response;
 public class DetailScreenActivity extends AppCompatActivity {
 	private static final String TAG = "DetailScreenActivity";
 	private int authorID;
+	private int postID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,11 @@ public class DetailScreenActivity extends AppCompatActivity {
 			postBody.setText(postTitleBody.getBody());
 
 			authorID = postTitleBody.getUserId();
+			postID = postTitleBody.getId();
 
 			GetDataService service = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+
+//			Define author name
 			Call<List<PostUserComment>> call = service.getApiData("users");
 			call.enqueue(new Callback<List<PostUserComment>>() {
 
@@ -44,11 +48,41 @@ public class DetailScreenActivity extends AppCompatActivity {
 					Toast.makeText(DetailScreenActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
 				}
 			});
+//			Define nr of comments by calculating them
+			call = service.getApiData("comments");
+			call.enqueue(new Callback<List<PostUserComment>>() {
+
+				@Override
+				public void onResponse(Call<List<PostUserComment>> call, Response<List<PostUserComment>> response) {
+					countComments(response.body());
+				}
+
+				@Override
+				public void onFailure(Call<List<PostUserComment>> call, Throwable t) {
+					Toast.makeText(DetailScreenActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 	}
 	private void authorName(final List<PostUserComment> authorName) {
 		Log.d(TAG, "authorName: ");
 		TextView postAuthor = findViewById(R.id.post_author);
 		postAuthor.setText(authorName.get(authorID-1).getName());
+	}
+
+	private void countComments(final List<PostUserComment> authorName) {
+		Log.d(TAG, "authorName: ");
+		TextView postAuthor = findViewById(R.id.post_number_coments);
+
+		int i = 0;
+		int count = 0;
+
+		while(i++ < authorName.size()){
+			if(postID == authorName.get(i-1).getPostId()){
+				count++;
+			}
+		}
+
+		postAuthor.setText("Post received " + count + " commments.");
 	}
 }
