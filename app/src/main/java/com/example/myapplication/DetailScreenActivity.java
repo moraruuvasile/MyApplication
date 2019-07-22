@@ -48,7 +48,7 @@ public class DetailScreenActivity extends AppCompatActivity {
 					Toast.makeText(DetailScreenActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
 				}
 			});
-//			Define nr of comments by calculating them
+//			Define nr of comments by counting them
 			call = service.getApiData("comments");
 			call.enqueue(new Callback<List<PostUserComment>>() {
 
