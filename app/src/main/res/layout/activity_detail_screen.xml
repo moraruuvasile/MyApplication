@@ -13,11 +13,11 @@
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
 		android:text="Author name"
-		app:layout_constraintBaseline_toBaselineOf="@+id/author_name"
+		app:layout_constraintBaseline_toBaselineOf="@+id/post_author"
 		app:layout_constraintStart_toStartOf="parent" />
 
 	<TextView
-		android:id="@+id/author_name"
+		android:id="@+id/post_author"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="10dp"
@@ -48,7 +48,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/textView4"
-		app:layout_constraintTop_toBottomOf="@+id/author_name" />
+		app:layout_constraintTop_toBottomOf="@+id/post_author" />
 
 	<TextView
 		android:id="@+id/textView8"

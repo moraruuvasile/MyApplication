@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 		GetDataService service = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
 
-		Call<List<PostUserComment>> call = service.getAllPhotos();
+		Call<List<PostUserComment>> call = service.getApiData("posts");
 		call.enqueue(new Callback<List<PostUserComment>>() {
 
 			@Override

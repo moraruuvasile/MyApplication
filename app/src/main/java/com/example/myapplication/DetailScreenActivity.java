@@ -14,21 +14,24 @@ import retrofit2.Response;
 
 public class DetailScreenActivity extends AppCompatActivity {
 	private static final String TAG = "DetailScreenActivity";
+	private int authorID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_screen);
-		PostUserComment post = (PostUserComment) getIntent().getSerializableExtra("Post");
-		if (post != null) {
+		PostUserComment postTitleBody = (PostUserComment) getIntent().getSerializableExtra("Post");
+		if (postTitleBody != null) {
 			TextView postTitle = findViewById(R.id.post_title);
-			postTitle.setText(post.getTitle());
+			postTitle.setText(postTitleBody.getTitle());
 
 			TextView postBody = findViewById(R.id.post_body);
-			postBody.setText(post.getBody());
+			postBody.setText(postTitleBody.getBody());
+
+			authorID = postTitleBody.getUserId();
 
 			GetDataService service = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-			Call<List<PostUserComment>> call = service.getAllPhotos();
+			Call<List<PostUserComment>> call = service.getApiData("users");
 			call.enqueue(new Callback<List<PostUserComment>>() {
 
 				@Override
@@ -43,7 +46,9 @@ public class DetailScreenActivity extends AppCompatActivity {
 			});
 		}
 	}
-	private void authorName(final List<PostUserComment> posts) {
+	private void authorName(final List<PostUserComment> authorName) {
 		Log.d(TAG, "authorName: ");
+		TextView postAuthor = findViewById(R.id.post_author);
+		postAuthor.setText(authorName.get(authorID-1).getName());
 	}
 }
